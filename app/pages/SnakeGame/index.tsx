@@ -14,7 +14,6 @@ import Food from "./components/Food";
 import GameControls from "./components/GameControls";
 import ScoreDisplay from "./components/ScoreDisplay";
 
-
 const SnakeGame = () => {
   const [showTutorial, setShowTutorial] = useState<boolean>(false);
   const [showMainMenu, setShowMainMenu] = useState<boolean>(true);
@@ -80,7 +79,7 @@ const SnakeGame = () => {
       <PanGestureHandler onGestureEvent={handleGesture}>
         <View style={styles.containerContent}>
           <GameBoard fieldWidth={fieldWidth} fieldHeight={fieldHeight}>
-            <Snake segments={snake} />
+            <Snake segments={snake} direction={direction} />
             <Food position={food} />
           </GameBoard>
           <GameControls

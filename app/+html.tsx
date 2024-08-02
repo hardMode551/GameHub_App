@@ -1,3 +1,4 @@
+import React from 'react'
 import { ScrollViewStyleReset } from 'expo-router/html';
 import { type PropsWithChildren } from 'react';
 
@@ -11,7 +12,7 @@ export default function Root({ children }: PropsWithChildren) {
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         {/*
           Disable body scrolling on web. This makes ScrollView components work closer to how they do on native.
@@ -29,11 +30,30 @@ export default function Root({ children }: PropsWithChildren) {
 }
 
 const responsiveBackground = `
+html, body {
+  overflow-x: hidden;
+  height: 100vh !important;
+  position: static !important;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   background-color: #fff;
+  -ms-touch-action: none;
+  touch-action: none;
 }
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #000;
   }
-}`;
+}
+
+/* Стили для Safari */
+@supports (-webkit-touch-callout: inherit) {
+  body {
+    height: 100vh !important;
+  }
+}
+`;

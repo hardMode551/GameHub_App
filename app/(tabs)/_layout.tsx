@@ -9,10 +9,21 @@ export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-      <Tabs
+    <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
+        tabBarStyle: {
+          height: 60,
+          borderTopWidth: 0,
+
+          backgroundColor: '#0ABAB5',
+        },
+        tabBarLabelStyle: {
+          fontSize: 12, // Настройка размера шрифта для меток
+          fontWeight: 'bold', // Настройка жирности шрифта
+          color: 'white', // Настройка цвета шрифта
+        },
       }}>
       <Tabs.Screen
         name="index"

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Dimensions, Alert, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import { CELL_SIZE, Direction } from '../utils/constants';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-
 
 const calculateFieldDimensions = () => {
   const { width, height } = Dimensions.get('window');
@@ -12,13 +11,29 @@ const calculateFieldDimensions = () => {
   return { fieldWidth, fieldHeight };
 };
 
+const getNextPosition = (x: number, y: number, direction: string) => {
+  switch (direction) {
+    case 'UP':
+      return { x, y: y - 1 };
+    case 'RIGHT':
+      return { x: x + 1, y };
+    case 'DOWN':
+      return { x, y: y + 1 };
+    case 'LEFT':
+      return { x: x - 1, y };
+    default:
+      return { x, y };
+  }
+};
+
 export const useGameLogic = (showMainMenu: boolean, showTutorial: boolean) => {
   const { fieldWidth, fieldHeight } = calculateFieldDimensions();
 
-  const [snake, setSnake] = useState<{ x: number; y: number }[]>([
-    { x: 5, y: 5 },
-    { x: 4, y: 5 },
-    { x: 3, y: 5 }
+  const [snake, setSnake] = useState<{ x: number; y: number; direction: string }[]>([
+    { x: 5, y: 5, direction: 'RIGHT' },
+    { x: 4, y: 5, direction: 'RIGHT' },
+    { x: 3, y: 5, direction: 'RIGHT' },
+    { x: 2, y: 5, direction: 'RIGHT' },
   ]);
   const [food, setFood] = useState<{ x: number; y: number }>({ x: 10, y: 10 });
   const [direction, setDirection] = useState<Direction>('RIGHT');
@@ -69,9 +84,9 @@ export const useGameLogic = (showMainMenu: boolean, showTutorial: boolean) => {
       if (newHead.x === food.x && newHead.y === food.y) {
         setScore(score + 1);
         setFood(generateFoodPosition());
-        setSnake([newHead, ...snake]);
+        setSnake([{ ...newHead, direction }, ...snake]);
       } else {
-        const newSnake = [newHead, ...snake.slice(0, -1)];
+        const newSnake = [{ ...newHead, direction }, ...snake.slice(0, -1)];
         setSnake(newSnake);
       }
     };
@@ -85,9 +100,10 @@ export const useGameLogic = (showMainMenu: boolean, showTutorial: boolean) => {
 
   const resetGame = () => {
     setSnake([
-      { x: 5, y: 5 },
-      { x: 4, y: 5 },
-      { x: 3, y: 5 }
+      { x: 5, y: 5, direction: 'RIGHT' },
+      { x: 4, y: 5, direction: 'RIGHT' },
+      { x: 3, y: 5, direction: 'RIGHT' },
+      { x: 2, y: 5, direction: 'RIGHT' },
     ]);
     setFood(generateFoodPosition());
     setDirection('RIGHT');
@@ -110,4 +126,3 @@ export const useGameLogic = (showMainMenu: boolean, showTutorial: boolean) => {
     fieldHeight,
   };
 };
-

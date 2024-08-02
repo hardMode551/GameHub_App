@@ -8,7 +8,7 @@ import MainMenuScreen from "../pages/MainMenuScreen";
 
 export default function TabTwoScreen() {
   return (
-    <ParallaxScrollView
+    <ParallaxScrollView 
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <ThemedView style={styles.logoContainer}>

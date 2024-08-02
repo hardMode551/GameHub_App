@@ -20,7 +20,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ fieldWidth, fieldHeight, children
       alignItems: 'center',
 
       backgroundColor: 'grey',
-      overflow: 'hidden',
+      // overflow: 'hidden',
       
       width: boardWidth,
       height: boardHeight,
